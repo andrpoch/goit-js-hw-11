@@ -4,3 +4,22 @@
   opacity: 0;
   pointer-events: none;
 }
+
+img {
+  display: block;
+width: 300px;
+height: 180px;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.photo-card {
+  border: 2px solid black;
+  border-radius: 10px;
+    margin-bottom: 20px;
+}
+.info {
+  margin-right: 10px;
+}

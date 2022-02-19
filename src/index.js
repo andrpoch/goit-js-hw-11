@@ -1,3 +1,5 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import './sass/main.scss';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchImages } from './services/axiosImages';
@@ -42,8 +44,9 @@ const getImages = async (e) => {
 }
 
 const renderImg = (arr) => {
-   const markup = arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, dowloads }) => {
+   const markup = arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
       return `<div class="photo-card">
+       <a class="photo-link" href="${largeImageURL}">
  <img src="${webformatURL}" alt="${tags}" loading="lazy" width="300"/>
 </a>
   <div class="info">
@@ -57,14 +60,16 @@ const renderImg = (arr) => {
       <b>Comments</b> ${comments}
     </p>
     <p class="info-item">
-      <b>Downloads</b> ${dowloads}
+      <b>Downloads</b> ${downloads}
     </p>
   </div>
 </div>`
    })
       .join('');
    gallery.insertAdjacentHTML('beforeend', markup);
+     lightbox.refresh();
 }
+
 
 const loadImages = async () => {
    page += 1;
@@ -83,7 +88,6 @@ const loadImages = async () => {
    Notify.failure('Sorry, there are no images matching your search query. Please try again.'); 
    }
 }
-
 const clearData = () => {
    gallery.innerHTML = '';
 }
@@ -96,5 +100,12 @@ const hideLoadBtn = () => {
    btn.classList.add('is-hidden');
 }
 
+const lightbox = new SimpleLightbox('.photo-card a', {
+   captionsData: 'alt',
+   captionDelay: 200,
+    navText: ['←','→'],
+    fadeSpeed: 300,
+    spinner: true,
+});
 form.addEventListener('submit', getImages);
 btn.addEventListener('click', loadImages);
