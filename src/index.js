@@ -102,7 +102,7 @@ const hideLoadBtn = () => {
 
 const lightbox = new SimpleLightbox('.photo-card a', {
    captionsData: 'alt',
-   captionDelay: 200,
+   captionDelay: 300,
     navText: ['←','→'],
     fadeSpeed: 300,
     spinner: true,
